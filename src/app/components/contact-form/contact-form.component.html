@@ -1,0 +1,56 @@
+<div class="container mt-4">
+    <h2>{{ isEditMode ? 'Edit' : 'Add' }} Contact</h2>
+    <form (ngSubmit)="onSubmit()" #contactForm="ngForm">
+      <div class="mb-3">
+        <label for="firstName" class="form-label">First Name</label>
+        <input type="text" class="form-control" id="firstName" name="firstName" [(ngModel)]="contact.firstName" required>
+      </div>
+      <div class="mb-3">
+        <label for="lastName" class="form-label">Last Name</label>
+        <input type="text" class="form-control" id="lastName" name="lastName" [(ngModel)]="contact.lastName" required>
+      </div>
+      <div class="mb-3">
+        <label for="gender" class="form-label">Gender</label>
+        <select class="form-select" id="gender" name="gender" [(ngModel)]="contact.gender" required>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="dateOfBirth" class="form-label">Date of Birth</label>
+        <input type="date" class="form-control" id="dateOfBirth" name="dateOfBirth" [(ngModel)]="contact.dateOfBirth" required>
+      </div>
+      <div class="mb-3">
+        <label for="location" class="form-label">Location</label>
+        <input type="text" class="form-control" id="location" name="location" [(ngModel)]="contact.location" required>
+      </div>
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" class="form-control" id="email" name="email" [(ngModel)]="contact.email" required>
+      </div>
+      <div class="mb-3">
+        <label for="mobile" class="form-label">Mobile</label>
+        <input type="tel" class="form-control" id="mobile" name="mobile" [(ngModel)]="contact.mobile" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Groups</label>
+        <div>
+          <button *ngFor="let group of availableGroups" 
+                  (click)="addGroup(group)"
+                  class="btn btn-outline-primary me-2 mb-2">
+            {{ group }}
+          </button>
+        </div>
+        <div>
+          <span *ngFor="let group of contact.groups" 
+                class="badge bg-primary me-2">
+            {{ group }}
+            <button (click)="removeGroup(group)" class="btn-close btn-close-white"></button>
+          </span>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary me-2" [disabled]="!contactForm.form.valid">{{ isEditMode ? 'Update' : 'Add' }} Contact</button>
+      <button type="button" class="btn btn-secondary" (click)="clearForm()">Clear</button>
+    </form>
+  </div>
